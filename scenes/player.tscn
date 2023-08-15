@@ -1,0 +1,49 @@
+[gd_scene load_steps=7 format=3 uid="uid://per3lls2li7f"]
+
+[ext_resource type="Script" path="res://scenes/player.gd" id="1_5gimg"]
+[ext_resource type="Texture2D" uid="uid://bhcl46pw2cxe7" path="res://icon.svg" id="2_1g0p7"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_r7tdq"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ehqw6"]
+albedo_texture = ExtResource("2_1g0p7")
+uv1_scale = Vector3(2, 2, 2)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_m63jp"]
+material = SubResource("StandardMaterial3D_ehqw6")
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_i4osf"]
+properties/0/path = NodePath(".:peer_id")
+properties/0/spawn = true
+properties/0/sync = false
+properties/0/watch = false
+properties/1/path = NodePath(".:position")
+properties/1/spawn = true
+properties/1/sync = true
+properties/1/watch = false
+
+[node name="Player" type="CharacterBody3D"]
+script = ExtResource("1_5gimg")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_r7tdq")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1.31134e-07, 0, -1, 0, 1, 0, 1, 0, 1.31134e-07, 0, 0, 0)
+mesh = SubResource("CapsuleMesh_m63jp")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+fov = 90.0
+
+[node name="Label3D" type="Label3D" parent="."]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 1.5, 0)
+billboard = 1
+text = "1"
+font_size = 64
+outline_size = 8
+
+[node name="Synchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_interval = 0.2
+delta_interval = 0.2
+replication_config = SubResource("SceneReplicationConfig_i4osf")
