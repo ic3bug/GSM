@@ -21,8 +21,13 @@ properties/1/path = NodePath(".:position")
 properties/1/spawn = true
 properties/1/sync = true
 properties/1/watch = false
+properties/2/path = NodePath(".:rotation")
+properties/2/spawn = true
+properties/2/sync = true
+properties/2/watch = false
 
 [node name="Player" type="CharacterBody3D"]
+collision_layer = 2
 script = ExtResource("1_5gimg")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
@@ -44,6 +49,4 @@ font_size = 64
 outline_size = 8
 
 [node name="Synchronizer" type="MultiplayerSynchronizer" parent="."]
-replication_interval = 0.2
-delta_interval = 0.2
 replication_config = SubResource("SceneReplicationConfig_i4osf")

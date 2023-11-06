@@ -14,8 +14,7 @@ const JUMP_VELOCITY = 10.0
 
 func _ready():
 	# Set local camera.
-	if peer_id == multiplayer.get_unique_id():
-		$Camera3D.current = true
+	$Camera3D.current = peer_id == multiplayer.get_unique_id()
 	# Set process functions for current player.
 	var is_local = is_multiplayer_authority()
 	set_process_input(is_local)
