@@ -1,2 +1,2 @@
-# SMP
+# GSM
 Godot Simple Multiplayer
