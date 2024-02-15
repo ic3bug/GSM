@@ -20,10 +20,7 @@ func _ready():
 
 func load_map():
 	# Free previously loaded maps and menus
-	if map != null:
-		map.queue_free()
-	if menu != null:
-		menu.queue_free()
+	remove_stuff()
 	
 	# Spawn map
 	map = preload("res://scenes/map.tscn").instantiate()
@@ -42,3 +39,9 @@ func remove_player(id: int):
 	if not players.has_node(str(id)):
 		return
 	players.get_node(str(id)).queue_free()
+
+func remove_stuff():
+	if map != null:
+		map.queue_free()
+	if menu != null:
+		menu.queue_free()
