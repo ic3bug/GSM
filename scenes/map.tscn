@@ -1,6 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://d0kbbii8qj6we"]
+[gd_scene load_steps=7 format=3 uid="uid://d0kbbii8qj6we"]
 
 [ext_resource type="Texture2D" uid="uid://bcl8m051pp4f8" path="res://textures/texture.png" id="1_3rttj"]
+[ext_resource type="Texture2D" uid="uid://bhcl46pw2cxe7" path="res://icon.svg" id="2_fmjbj"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_apb68"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -72,7 +73,7 @@ use_collision = true
 size = Vector3(8, 12, 4)
 material = SubResource("StandardMaterial3D_if3v1")
 
-[node name="Box6" type="CSGBox3D" parent="Geometry/Box5"]
+[node name="Sub" type="CSGBox3D" parent="Geometry/Box5"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2, -1)
 operation = 2
 size = Vector3(4, 8, 2)
@@ -84,8 +85,15 @@ use_collision = true
 size = Vector3(8, 12, 4)
 material = SubResource("StandardMaterial3D_if3v1")
 
-[node name="Box6" type="CSGBox3D" parent="Geometry/Box6"]
+[node name="Sub" type="CSGBox3D" parent="Geometry/Box6"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2, -1)
 operation = 2
 size = Vector3(4, 8, 2)
 material = SubResource("StandardMaterial3D_if3v1")
+
+[node name="Decals" type="Node" parent="."]
+
+[node name="Decal" type="Decal" parent="Decals"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+size = Vector3(4, 0.1, 4)
+texture_albedo = ExtResource("2_fmjbj")

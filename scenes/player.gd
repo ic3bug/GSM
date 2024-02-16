@@ -19,6 +19,7 @@ const ACCELERATION : float = 5.0
 
 @export var sync_position : Vector3
 @export var sync_rotation : Vector3
+@export var sync_look : float
 
 func _ready():
 	# Capture the mouse on player spawn
@@ -29,6 +30,8 @@ func _ready():
 	var is_local = is_multiplayer_authority()
 	set_process_input(is_local)
 	set_process(is_local)
+	# Mesh rendering mode
+	$Model/Skeleton3D/Mesh.cast_shadow = 3 if is_local else 1
 
 func _process(_delta):
 	# Handle mouse capture
@@ -61,14 +64,16 @@ func process_movement(delta : float):
 	# Godot's movement and collision detection function
 	move_and_slide()
 	
+	# Synchronize position and rotation
 	sync_position = position
 	sync_rotation = rotation
-	
+
 # Interpolate peer movement and rotation
 func sync_movement(delta):
 	if is_multiplayer_authority(): return
 	position = lerp(position, sync_position, delta * 12.0)
 	rotation.y = lerp_angle(rotation.y, sync_rotation.y, delta * 12.0)
+	$Model/AnimationTree.set("parameters/look/blend_amount", sync_look)
 
 func _input(event):
 	# If mouse is visible do nothing
@@ -80,3 +85,5 @@ func _input(event):
 		# Handle head rotation
 		$Head.rotation.x -= event.relative.y * 0.001 * mouse_sensitivity
 		$Head.rotation.x = clamp($Head.rotation.x, -1.5, 1.5)
+		$Model/AnimationTree.set("parameters/look/blend_amount", $Head.rotation.x)
+		sync_look = $Head.rotation.x

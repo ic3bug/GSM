@@ -3,3 +3,9 @@
 [node name="Main" type="Node"]
 
 [node name="Players" type="Node" parent="."]
+
+[node name="Rays" type="Node" parent="."]
+
+[node name="RaySpawner" type="MultiplayerSpawner" parent="."]
+_spawnable_scenes = PackedStringArray("res://scenes/ray.tscn")
+spawn_path = NodePath("../Rays")

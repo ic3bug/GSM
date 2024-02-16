@@ -45,3 +45,6 @@ func remove_stuff():
 		map.queue_free()
 	if menu != null:
 		menu.queue_free()
+
+func spawn_bullet():
+	pass

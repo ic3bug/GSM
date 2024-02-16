@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://d0bd3s6lr2q8i"]
+
+[ext_resource type="Script" path="res://scenes/ray.gd" id="1_5uyy7"]
+
+[node name="Ray" type="RayCast3D"]
+target_position = Vector3(0, 0, -1000)
+collision_mask = 2
+debug_shape_custom_color = Color(0, 1, 0, 1)
+script = ExtResource("1_5uyy7")
