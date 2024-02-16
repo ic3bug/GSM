@@ -41,9 +41,10 @@ func _process(_delta):
 func _physics_process(delta):
 	sync_movement(delta)
 	process_movement(delta)
+	process_fire()
 
 func process_movement(delta : float):
-	if !is_multiplayer_authority(): return
+	if not is_multiplayer_authority(): return
 	
 	# Add the gravity
 	if not is_on_floor():
@@ -74,6 +75,18 @@ func sync_movement(delta):
 	position = lerp(position, sync_position, delta * 12.0)
 	rotation.y = lerp_angle(rotation.y, sync_rotation.y, delta * 12.0)
 	$Model/AnimationTree.set("parameters/look/blend_amount", sync_look)
+	$Head.rotation.x = sync_look
+
+func process_fire():
+	if not is_multiplayer_authority(): return
+	if Input.is_action_just_pressed("player_fire"):
+		rpc.call("fire_ray")
+
+@rpc("call_local")
+func fire_ray():
+	var ray = preload("res://scenes/ray.tscn").instantiate()
+	ray.global_transform = $Head.global_transform
+	Game.main.add_child(ray, true)
 
 func _input(event):
 	# If mouse is visible do nothing
